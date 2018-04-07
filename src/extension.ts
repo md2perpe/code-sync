@@ -32,30 +32,18 @@ export async function activate(context: vscode.ExtensionContext) {
         codeSync.setStatusBarIcon();
     }
 
-    let importAllDisposable = vscode.commands.registerCommand('codeSync.importAll', async function() {
-        await codeSync.importAll();
-    });
-    let exportAllDisposable = vscode.commands.registerCommand('codeSync.exportAll', async function() {
-        await codeSync.exportAll();
-    });
-    let importSettingsDisposable = vscode.commands.registerCommand('codeSync.importSettings', function() {
-        codeSync.importSettings();
-    });
-    let exportSettingsDisposable = vscode.commands.registerCommand('codeSync.exportSettings', function() {
-        codeSync.exportSettings();
-    });
-    let importKeybindingsDisposable = vscode.commands.registerCommand('codeSync.importKeybindings', async function() {
-        await codeSync.importKeybindings();
-    });
-    let exportKeybindingsDisposable = vscode.commands.registerCommand('codeSync.exportKeybindings', async function() {
-        await codeSync.exportKeybindings();
-    });
-    let importSnippetsDisposable = vscode.commands.registerCommand('codeSync.importSnippets', async function() {
-        await codeSync.importSnippets();
-    });
-    let exportSnippetsDisposable = vscode.commands.registerCommand('codeSync.exportSnippets', async function() {
-        await codeSync.exportSnippets();
-    });
+    let importAllDisposable = vscode.commands.registerCommand('codeSync.importAll', codeSync.importAll);
+    let exportAllDisposable = vscode.commands.registerCommand('codeSync.exportAll', codeSync.exportAll);
+    
+    let importSettingsDisposable = vscode.commands.registerCommand('codeSync.importSettings', codeSync.importSettings);
+    let exportSettingsDisposable = vscode.commands.registerCommand('codeSync.exportSettings', codeSync.exportSettings);
+    
+    let importKeybindingsDisposable = vscode.commands.registerCommand('codeSync.importKeybindings', codeSync.importKeybindings);
+    let exportKeybindingsDisposable = vscode.commands.registerCommand('codeSync.exportKeybindings', codeSync.exportKeybindings);
+    
+    let importSnippetsDisposable = vscode.commands.registerCommand('codeSync.importSnippets', codeSync.importSnippets);
+    let exportSnippetsDisposable = vscode.commands.registerCommand('codeSync.exportSnippets', codeSync.exportSnippets);
+    
     let importExtensionsDisposable = vscode.commands.registerCommand('codeSync.importExtensions', function() {
         if (codeSync.CanManageExtensions) {
             codeSync.importExtensions();
@@ -72,24 +60,16 @@ export async function activate(context: vscode.ExtensionContext) {
             vscode.window.showWarningMessage(helpers.getCodePathWarningMessage());
         }
     });
-    let listExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.listExcludedInstalled', function() {
-        codeSync.displayExcludedInstalledPackages();
-    });
-    let listExcludedExternalDisposable = vscode.commands.registerCommand('codeSync.listExcludedExternal', function() {
-        codeSync.displayExcludedExternalPackages();
-    });
-    let addExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.addExcludedInstalled', async function() {
-        await codeSync.addExcludedInstalledPackage();
-    });
-    let addExcludedExternalDisposable = vscode.commands.registerCommand('codeSync.addExcludedExternal', async function() {
-        await codeSync.addExcludedExternalPackage();
-    });
-    let removeExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.removeExcludedInstalled', async function() {
-        await codeSync.removeExcludedInstalledPackage();
-    });
-    let removeExcludedExternalDisposable = vscode.commands.registerCommand('codeSync.removeExcludedExternal', async function() {
-        await codeSync.removeExcludedExternalPackage();
-    });
+
+    let listExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.listExcludedInstalled', codeSync.displayExcludedInstalledPackages);
+    let listExcludedExternalDisposable  = vscode.commands.registerCommand('codeSync.listExcludedExternal',  codeSync.displayExcludedExternalPackages);
+    
+    let addExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.addExcludedInstalled', codeSync.addExcludedInstalledPackage);
+    let addExcludedExternalDisposable  = vscode.commands.registerCommand('codeSync.addExcludedExternal',  codeSync.addExcludedExternalPackage);
+    
+    let removeExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.removeExcludedInstalled', codeSync.removeExcludedInstalledPackage);
+    let removeExcludedExternalDisposable  = vscode.commands.registerCommand('codeSync.removeExcludedExternal',  codeSync.removeExcludedExternalPackage);
+    
     let toggleAutoImportDisposable = vscode.commands.registerCommand('codeSync.toggleAutoImport', async function() {
         await codeSync.toggleSetting('autoImport', codeSync.Settings.Settings.autoImport);
     });
@@ -108,12 +88,8 @@ export async function activate(context: vscode.ExtensionContext) {
     let toggleImportExtensionsDisposable = vscode.commands.registerCommand('codeSync.toggleImportExtensions', async function() {
         await codeSync.toggleSetting('importExtensions', codeSync.Settings.Settings.importExtensions);
     });
-    let setSyncPathDisposable = vscode.commands.registerCommand('codeSync.setSyncPath', async function() {
-        await codeSync.setExternalSyncPath();
-    });
-    let toggleStatusBarDisposable = vscode.commands.registerCommand('codeSync.toggleStatusBar', function() {
-        codeSync.toggleStatusBarIcon();
-    });
+    let setSyncPathDisposable = vscode.commands.registerCommand('codeSync.setSyncPath', codeSync.setExternalSyncPath);
+    let toggleStatusBarDisposable = vscode.commands.registerCommand('codeSync.toggleStatusBar', codeSync.toggleStatusBarIcon);
 
     context.subscriptions.push(
         importAllDisposable,
