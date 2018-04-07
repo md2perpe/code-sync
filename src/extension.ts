@@ -44,22 +44,19 @@ export async function activate(context: vscode.ExtensionContext) {
     let importSnippetsDisposable = vscode.commands.registerCommand('codeSync.importSnippets', codeSync.importSnippets);
     let exportSnippetsDisposable = vscode.commands.registerCommand('codeSync.exportSnippets', codeSync.exportSnippets);
     
-    let importExtensionsDisposable = vscode.commands.registerCommand('codeSync.importExtensions', function() {
-        if (codeSync.CanManageExtensions) {
-            codeSync.importExtensions();
-        }
-        else {
-            vscode.window.showWarningMessage(helpers.getCodePathWarningMessage());
-        }
+    let ifCanManageExtensions = (fn) => {
+        return () => {
+            if (codeSync.CanManageExtensions) {
+                fn();
+            }
+            else {
+                vscode.window.showWarningMessage(helpers.getCodePathWarningMessage());
+            }
+        };
     });
-    let exportExtensionsDisposable = vscode.commands.registerCommand('codeSync.exportExtensions', function() {
-        if (codeSync.CanManageExtensions) {
-            codeSync.exportExtensions();
-        }
-        else {
-            vscode.window.showWarningMessage(helpers.getCodePathWarningMessage());
-        }
-    });
+            
+    let importExtensionsDisposable = vscode.commands.registerCommand('codeSync.importExtensions', ifCanManageExtensions(codeSync.importExtensions));
+    let exportExtensionsDisposable = vscode.commands.registerCommand('codeSync.exportExtensions', ifCanManageExtensions(codeSync.exportExtensions));
 
     let listExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.listExcludedInstalled', codeSync.displayExcludedInstalledPackages);
     let listExcludedExternalDisposable  = vscode.commands.registerCommand('codeSync.listExcludedExternal',  codeSync.displayExcludedExternalPackages);
