@@ -77,23 +77,12 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     };
     
-    let toggleAutoImportDisposable = vscode.commands.registerCommand('codeSync.toggleAutoImport', async function() {
-        await toggleSetting('autoImport')();
-    });
-    let toggleAutoExportDisposable = vscode.commands.registerCommand('codeSync.toggleAutoExport', async function() {
-        await toggleSetting('autoExport')();
-    });
-    let toggleImportSettingsDisposable = vscode.commands.registerCommand('codeSync.toggleImportSettings', async function() {
-        await toggleSetting('importSettings')();
-    });
-    let toggleImportKeybindingsDisposable = vscode.commands.registerCommand('codeSync.toggleImportKeybindings', async function() {
-        await toggleSetting('importKeybindings')();
-    });
-    let toggleImportSnippetsDisposable = vscode.commands.registerCommand('codeSync.toggleImportSnippets', async function() {
-        await toggleSetting('importSnippets')();
-    });
-    let toggleImportExtensionsDisposable = vscode.commands.registerCommand('codeSync.toggleImportExtensions', async function() {
-        await toggleSetting('importExtensions')();
+    let toggleAutoImportDisposable = vscode.commands.registerCommand('codeSync.toggleAutoImport', toggleSetting('autoImport'));
+    let toggleAutoExportDisposable = vscode.commands.registerCommand('codeSync.toggleAutoExport', toggleSetting('autoExport'));
+    let toggleImportSettingsDisposable = vscode.commands.registerCommand('codeSync.toggleImportSettings', toggleSetting('importSettings'));
+    let toggleImportKeybindingsDisposable = vscode.commands.registerCommand('codeSync.toggleImportKeybindings', toggleSetting('importKeybindings'));
+    let toggleImportSnippetsDisposable = vscode.commands.registerCommand('codeSync.toggleImportSnippets', toggleSetting('importSnippets'));
+    let toggleImportExtensionsDisposable = vscode.commands.registerCommand('codeSync.toggleImportExtensions', toggleSetting('importExtensions')();
     });
     
     let setSyncPathDisposable = vscode.commands.registerCommand('codeSync.setSyncPath', codeSync.setExternalSyncPath);
