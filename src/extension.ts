@@ -33,7 +33,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     
-    let ifCanManageExtensions = (fn) => {
+    function ifCanManageExtensions(fn) {
         return () => {
             if (codeSync.CanManageExtensions) {
                 fn();
@@ -42,13 +42,13 @@ export async function activate(context: vscode.ExtensionContext) {
                 vscode.window.showWarningMessage(helpers.getCodePathWarningMessage());
             }
         };
-    });
-
-    let toggleSetting = (setting : string) => {
+    }
+    
+    function toggleSettings(setting : string) {
         return async () => {
             await codeSync.toggleSetting(setting, codeSync.Settings.Settings[setting]);
         }
-    };
+    }
     
     context.subscriptions.push(
         
@@ -79,12 +79,12 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('codeSync.toggleAutoImport', toggleSetting('autoImport')),
         vscode.commands.registerCommand('codeSync.toggleAutoExport', toggleSetting('autoExport')),
                                         
-        vscode.commands.registerCommand('codeSync.toggleImportSettings', toggleSetting('importSettings')),
+        vscode.commands.registerCommand('codeSync.toggleImportSettings',    toggleSetting('importSettings')),
         vscode.commands.registerCommand('codeSync.toggleImportKeybindings', toggleSetting('importKeybindings')),
-        vscode.commands.registerCommand('codeSync.toggleImportSnippets', toggleSetting('importSnippets')),
-        vscode.commands.registerCommand('codeSync.toggleImportExtensions', toggleSetting('importExtensions')),
+        vscode.commands.registerCommand('codeSync.toggleImportSnippets',    toggleSetting('importSnippets')),
+        vscode.commands.registerCommand('codeSync.toggleImportExtensions',  toggleSetting('importExtensions')),
     
-        vscode.commands.registerCommand('codeSync.setSyncPath', codeSync.setExternalSyncPath),
+        vscode.commands.registerCommand('codeSync.setSyncPath',     codeSync.setExternalSyncPath),
         vscode.commands.registerCommand('codeSync.toggleStatusBar', codeSync.toggleStatusBarIcon),
     
     );
