@@ -70,23 +70,27 @@ export async function activate(context: vscode.ExtensionContext) {
     let removeExcludedInstalledDisposable = vscode.commands.registerCommand('codeSync.removeExcludedInstalled', codeSync.removeExcludedInstalledPackage);
     let removeExcludedExternalDisposable  = vscode.commands.registerCommand('codeSync.removeExcludedExternal',  codeSync.removeExcludedExternalPackage);
     
+    let toggleSetting = async (setting : string) => {
+        await codeSync.toggleSetting(setting, codeSync.Settings.Settings[setting]);
+    };
+    
     let toggleAutoImportDisposable = vscode.commands.registerCommand('codeSync.toggleAutoImport', async function() {
-        await codeSync.toggleSetting('autoImport', codeSync.Settings.Settings.autoImport);
+        await toggleSetting('autoImport');
     });
     let toggleAutoExportDisposable = vscode.commands.registerCommand('codeSync.toggleAutoExport', async function() {
-        await codeSync.toggleSetting('autoExport', codeSync.Settings.Settings.autoExport);
+        await toggleSetting('autoExport');
     });
     let toggleImportSettingsDisposable = vscode.commands.registerCommand('codeSync.toggleImportSettings', async function() {
-        await codeSync.toggleSetting('importSettings', codeSync.Settings.Settings.importSettings);
+        await toggleSetting('importSettings');
     });
     let toggleImportKeybindingsDisposable = vscode.commands.registerCommand('codeSync.toggleImportKeybindings', async function() {
-        await codeSync.toggleSetting('importKeybindings', codeSync.Settings.Settings.importKeybindings);
+        await toggleSetting('importKeybindings');
     });
     let toggleImportSnippetsDisposable = vscode.commands.registerCommand('codeSync.toggleImportSnippets', async function() {
-        await codeSync.toggleSetting('importSnippets', codeSync.Settings.Settings.importSnippets);
+        await toggleSetting('importSnippets');
     });
     let toggleImportExtensionsDisposable = vscode.commands.registerCommand('codeSync.toggleImportExtensions', async function() {
-        await codeSync.toggleSetting('importExtensions', codeSync.Settings.Settings.importExtensions);
+        await toggleSetting('importExtensions');
     });
     let setSyncPathDisposable = vscode.commands.registerCommand('codeSync.setSyncPath', codeSync.setExternalSyncPath);
     let toggleStatusBarDisposable = vscode.commands.registerCommand('codeSync.toggleStatusBar', codeSync.toggleStatusBarIcon);
